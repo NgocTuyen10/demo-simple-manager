@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+//(1)
+<head>
+<meta charset="UTF-8" />
+<title>Membership</title>
+<link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+	<h1>Simple Manager(MPA)</h1>
+	<hr />
+	<p th:text="${registCompleteMessage}"></p>
+	//(2)
+	<hr />
+	<p>Member List</p>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>User ID</th>
+				<th>Birthday</th>
+				<th>Email</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="entry : ${memberlist}">
+				<td th:text="${entry.userid}" th:id="'key_'+${entry.userid}">No
+					key</td>
+				<td th:text="${entry.birthdate}" th:id="'value_'+${entry.birthdate}">No
+					value</td>
+				<td th:text="${entry.email}" th:id="'value_'+${entry.email}">No
+					value</td>
+			</tr>
+		</tbody>
+	</table>
+	<hr />
+	<a th:href="@{/mpa}" id="link_gotoTop">Top Screen</a>
+	<hr />
+	<p align="center">©Toshiba Solutions Corporation 2015 All Rights
+		Reserved.</p>
+</body>
+</html>

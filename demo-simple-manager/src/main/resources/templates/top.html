@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Simple Manager</title>
+<link href="lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<script src="lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function() { //(3)
+		$("#userid").on("keyup", function() {
+			$.ajax({
+				contentType : 'application/json; charset=UTF-8',
+				url : '/checkDuplication',
+				data : {
+					'userid' : $("#userid").val()
+				}
+			}).done(function(response, status, jqXHR) {
+				$("#alertmessage").css("display", "block");
+				$("#alertmessage").css("color", "black");
+				$("#alertmessage").html(response + "Available");
+			}).fail(function(jqXHR, status, errorThrown) {
+				$("#alertmessage").css("display", "block");
+				$("#alertmessage").css("color", "red");
+				$("#alertmessage").html(jqXHR.responseText + "Registed。");
+			});
+		});
+	});
+</script>
+</head>
+<body>
+	<h1>Simple Manager(MPA版)</h1>
+	<hr />
+	<form class="form-inline" name="form" action="#"
+		th:action="@{/registNew}" method="POST">
+		//(4) <input class="form-control" type="text" name="userid"
+			id="userid" placeholder="ユーザID" /> <input class="form-control"
+			type="date" name="birthdate" placeholder="生年月日(yyyy-MM-dd)"
+			pattern="\d{4}-\d{1,2}-\d{1,2}" /> <input class="form-control"
+			type="email" name="email" placeholder="メールアドレス" /> <input
+			class="btn btn-default" type="submit"
+			value="Submit />
+	</form>
+	<div role="
+			alert" style="display: none;" id="alertmessage">
+		</div>
+		<hr />
+		<a th:href="@{/viewAll}" id="link_gotoResult">現在登録されているユーザ一覧</a>
+		<hr />
+		<p align="center">©Toshiba Solutions Corporation 2015 All Rights
+			Reserved.</p>
+</body>
+</html>
